@@ -1,2 +1,2 @@
 [dev]
-<Server-IP> ansible_user=user
+172.16.131.68 ansible_user=user
