@@ -4,4 +4,4 @@ COPY . .
 RUN npm install
 RUN npm run build --prod
 FROM nginx:alpine
-COPY --from=node /app/dist/mini-project /usr/share/nginx/html
+COPY --from=node /app/dist/calculator /usr/share/nginx/html
