@@ -1,21 +1,32 @@
 ---
 - hosts: dev
   become: true
-
   tasks:
-  -name: start docker
-    service:
-      name: docker
-      state: started
-      enables: yes
-  - name: stop previous version docker
+    - name: Install python pip
+      npm:
+        name: python-pip
+        state: present
+    - name: Install docker
+      npm:
+        name: docker
+        state: present
+    - name: start docker
+      service:
+        name: docker
+        state: started
+        enables: yes
+    - name: Install docker-py python module
+      pip:
+        name: docker-py
+        state: present
+    - name: stop previous version docker
       shell: docker stop calculator
-  - name: remove stopped container
+    - name: remove stopped container
       shell: docker rm -f calculator
-  - name: remove docker images
+    - name: remove docker images
       shell: docker image rm -f sanchitdwivedi/calculator:latest
 
-  - name: Start the container
+    - name: Start the container
       docker_container:
         name: calculator
         image: "sanchitdwivedi/calculator:{{DOCKER_VERSION}}"
