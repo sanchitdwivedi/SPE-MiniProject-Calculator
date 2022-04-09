@@ -1,0 +1,2 @@
+[dev]
+<Server-IP> ansible_user=user
