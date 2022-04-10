@@ -1,2 +1,2 @@
 [dev]
-172.16.131.68 ansible_user=user ansible_sudo_pass=123456@saM ansible_python_interpreter=/usr/bin/python3
+localhost ansible_user=sanchit ansible_sudo_pass=123456@saM
