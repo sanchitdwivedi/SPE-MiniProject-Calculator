@@ -2,26 +2,6 @@
 - hosts: dev
   become: true
   tasks:
-    - name: Install python pip
-      npm:
-        name: python-pip
-        global: yes
-        state: present
-    - name: Install docker
-      npm:
-        name: docker
-        global: yes
-        state: present
-    - name: start docker
-      service:
-        name: docker
-        state: started
-        enables: yes
-    - name: Install docker-py python module
-      pip:
-        name: docker-py
-        global: yes
-        state: present
     - name: stop previous version docker
       shell: docker stop calculator
     - name: remove stopped container
