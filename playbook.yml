@@ -2,13 +2,6 @@
 - hosts: dev
   become: true
   tasks:
-    - name: stop previous version docker
-      shell: docker stop calculator
-    - name: remove stopped container
-      shell: docker rm -f calculator
-    - name: remove docker images
-      shell: docker image rm -f sanchitdwivedi/calculator:latest
-
     - name: Start the container
       docker_container:
         name: calculator
