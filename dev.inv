@@ -1,2 +1,2 @@
 [dev]
-localhost ansible_user=sanchit ansible_sudo_pass=123456@saM
+localhost ansible_user='sanchit' ansible_sudo_pass='123456@saM'
