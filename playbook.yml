@@ -10,4 +10,4 @@
         image: "sanchitdwivedi/calculator:843c372"
         state: started
         published_ports:
-          - 0.0.0.0:9090:9090
+          - 0.0.0.0:4200:4200
