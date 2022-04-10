@@ -4,7 +4,7 @@
   tasks:
     - name: Start the container
       vars:
-        ansible_python_interpreter: /bin/python3
+        ansible_python_interpreter: /usr/bin/python3
       docker_container:
         name: calculator
         image: "sanchitdwivedi/calculator:{{DOCKER_VERSION}}"
