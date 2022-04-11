@@ -4,6 +4,6 @@
   tasks:
     - name: Pull todolist devops image
       docker_image:
-        name: sanchitdwivedi/calculator
+        name: sanchitdwivedi/calculator:843c372
         source: pull
 ...
