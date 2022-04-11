@@ -4,7 +4,7 @@
   tasks:
     - name: Pull calculator devops image
       docker_image:
-        name: sanchitdwivedi/calculator:{{DOCKER_VERSION}}
+        name: sanchitdwivedi/calculator:[DOCKER_VERSION]
         source: pull
 
 - name: Run Docker Image
@@ -12,7 +12,7 @@
   tasks:
     - name: deploy calculator docker container
       docker_container:
-        image: sanchitdwivedi/calculator:{{DOCKER_VERSION}}
+        image: sanchitdwivedi/calculator:[DOCKER_VERSION]
         name: calculator
         state: started
         auto_remove: true
