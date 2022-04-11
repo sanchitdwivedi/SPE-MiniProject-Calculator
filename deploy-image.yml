@@ -2,8 +2,20 @@
 - name: Pull docker image of ToDoList
   hosts: all
   tasks:
-    - name: Pull todolist devops image
+    - name: Pull calculator devops image
       docker_image:
-        name: sanchitdwivedi/calculator:843c372
+        name: sanchitdwivedi/calculator:{{DOCKER_VERSION}}
         source: pull
+
+- name: Run Docker Image
+  hosts: all
+  tasks:
+    - name: deploy calculator docker container
+      docker_container:
+        image: sanchitdwivedi/calculator:{{DOCKER_VERSION}}
+        name: calculator
+        state: started
+        auto_remove: true
+        ports:
+          - "3000:80"
 ...
