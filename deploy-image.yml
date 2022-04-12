@@ -12,6 +12,7 @@
         image: sanchitdwivedi/calculator:latest
         name: calculator
         state: started
+        autoremove: true
         ports:
           - "3000:80"
 ...
