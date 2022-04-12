@@ -4,13 +4,13 @@
   tasks:
 
     - name: Stop Docker Container
-        shell: docker stop calculator
+      shell: docker stop calculator
         
     - name: Remove Docker Container
-        shell: docker rm -f calculator
+      shell: docker rm -f calculator
         
     - name: Remove Docker Image
-        shell: docker image rm -f sanchitdwivedi/calculator:latest
+      shell: docker image rm -f sanchitdwivedi/calculator:latest
         
     - name: Pull calculator devops image
       docker_image:
