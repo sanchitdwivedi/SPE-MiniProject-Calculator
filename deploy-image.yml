@@ -6,16 +6,12 @@
       docker_image:
         name: sanchitdwivedi/calculator:latest
         source: pull
-
-- name: Run Docker Image
-  hosts: all
-  tasks:
+        
     - name: deploy calculator docker container
       docker_container:
         image: sanchitdwivedi/calculator:latest
         name: calculator
         state: started
-        auto_remove: true
         ports:
           - "3000:80"
 ...
