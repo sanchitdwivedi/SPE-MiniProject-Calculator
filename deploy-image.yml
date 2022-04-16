@@ -1,0 +1,27 @@
+---
+- name: Pull docker image of ToDoList
+  hosts: all
+  tasks:
+
+    - name: Stop Docker Container
+      shell: docker stop calculator
+        
+    - name: Remove Docker Container
+      shell: docker rm -f calculator
+        
+    - name: Remove Docker Image
+      shell: docker image rm -f sanchitdwivedi/calculator:latest
+        
+    - name: Pull calculator devops image
+      docker_image:
+        name: sanchitdwivedi/calculator:latest
+        source: pull
+        
+    - name: deploy calculator docker container
+      docker_container:
+        image: sanchitdwivedi/calculator:latest
+        name: calculator
+        state: started
+        ports:
+          - "3000:80"
+...

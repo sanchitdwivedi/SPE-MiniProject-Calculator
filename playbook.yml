@@ -1,0 +1,13 @@
+---
+- hosts: dev
+  become: true
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  tasks:
+    - name: Start the container
+      docker_container:
+        name: calculator
+        image: "sanchitdwivedi/calculator:843c372"
+        state: started
+        published_ports:
+          - 127.0.0.1:9090:9090
