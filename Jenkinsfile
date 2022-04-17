@@ -1,8 +1,6 @@
 pipeline{
     agent any
-    environment {
-      DOCKER_VERSION = getVersion()
-    }
+  
     stages{
         stage('SCM'){
             steps{
@@ -17,12 +15,17 @@ pipeline{
         }
         stage('Build'){
             steps{
-                sh 'npm run build'
+                sh 'ng build'
+            }
+        }
+        stage('Testing'){
+            steps{
+                sh 'ng test --sourceMap=false --browsers=ChromeHeadless --watch=false --progress=false'
             }
         }
         stage('Docker Build'){
             steps{
-                sh 'docker build . -t sanchitdwivedi/calculator:${DOCKER_VERSION}'
+                sh 'docker build . -t sanchitdwivedi/calculator:latest'
             }
         }
         stage('DockerHub Push'){
@@ -30,18 +33,13 @@ pipeline{
                 withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPassword')]) {
                     sh "docker login -u sanchitdwivedi -p ${dockerHubPassword}"
                 }
-                sh 'docker push sanchitdwivedi/calculator:${DOCKER_VERSION}'
+                sh 'docker push sanchitdwivedi/calculator:latest'
             }
         }
         stage('Docker deploy'){
             steps{
-                ansiblePlaybook credentialsId: 'dev-server', disableHostKeyChecking: true, extras: '-e DOCKER_VERSION=${DOCKER_VERSION}', installation: 'ansible', inventory: 'dev.inv', playbook: 'playbook.yml'
+                ansiblePlaybook becomeUser: null, colorized: true, disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'deploy-image.yml', sudoUser: null
             }
         }
     }
-}
-
-def getVersion(){
-    def commitHash = sh returnStdout: true, script: 'git rev-parse --short HEAD'
-    return commitHash
 }
