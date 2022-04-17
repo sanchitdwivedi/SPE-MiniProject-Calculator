@@ -1,2 +1,0 @@
-[dev]
-localhost ansible_sudo_pass=123456@saM ansible_user=sanchit
