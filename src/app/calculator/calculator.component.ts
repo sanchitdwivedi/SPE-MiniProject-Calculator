@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { LoggerService } from '../_services/logger.service';
 
 @Component({
 	selector: 'app-calculator',
@@ -6,6 +7,9 @@ import { Component, HostListener, OnInit } from '@angular/core';
 	styleUrls: ['./calculator.component.css']
 })
 export class CalculatorComponent implements OnInit {
+
+	constructor(private loggerService: LoggerService) {}
+
 	ngOnInit(): void {
 	}
 	
@@ -13,8 +17,8 @@ export class CalculatorComponent implements OnInit {
 	value1: number = 0;
 	value2: number = 0;
 	expOprn: boolean = false;
+	multipleDigit: boolean = false;
 	performed: boolean = false;
-	
 	
 	pressNum(num: number) {
 		if(this.performed){
@@ -24,18 +28,24 @@ export class CalculatorComponent implements OnInit {
 		}
 		if (this.expOprn) {
 			this.value1 = 0;
+			this.multipleDigit = true; 
+			this.expOprn = false;
 		}
 		this.value1 = (this.value1 * 10) + num;
+		this.value = this.value1.toString();
+		// this.loggerService.trace(num + " pressed");
 	}
 	
 	allClear() {
 		this.value1 = 0;
 		this.value2 = 0;
 		this.value = this.value1.toString();
+
+		this.loggerService.info("Clear");
 	}
 	
 	getAnswer() {
-		if (this.expOprn) {
+		if (this.expOprn || this.multipleDigit) {
 			this.value1 = Math.pow(this.value2, this.value1);
 			this.value = this.value1.toString();
 		} else {
@@ -44,11 +54,16 @@ export class CalculatorComponent implements OnInit {
 		}
 		this.expOprn = false;
 		this.performed = true;
+		this.multipleDigit = false;
+
+		this.loggerService.info("Calculate");
 	}
 
 	exp() {
 		this.value2 = this.value1
 		this.expOprn = true;
+
+		this.loggerService.info("exp() function called");
 	}
 
 	fact() {
@@ -59,8 +74,11 @@ export class CalculatorComponent implements OnInit {
 			this.value1 = 0;
 		}else {
 			this.value = "Invalid Number";  
+			this.loggerService.error("Factorial of decimal not allowed");
 		}
 		this.performed = true;
+
+		this.loggerService.info("fact() function called");
 	}
 
 	factorial(n: number): any {
@@ -73,12 +91,16 @@ export class CalculatorComponent implements OnInit {
 		this.value1 = Math.sqrt(this.value1);
 		this.performed = true;
 		this.value = this.value1.toString();
+
+		this.loggerService.info("root() function called");
 	}
 
 	ln() {
 		this.value1 = Math.log(this.value1);
 		this.performed = true;
 		this.value = this.value1.toString();
+
+		this.loggerService.info("ln() function called");
 	}
 
 }
