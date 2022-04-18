@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { LoggerModule } from 'ngx-logger';
+import { LoggerService } from '../_services/logger.service';
 
 import { CalculatorComponent } from './calculator.component';
 

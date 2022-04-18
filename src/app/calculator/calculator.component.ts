@@ -4,7 +4,10 @@ import { LoggerService } from '../_services/logger.service';
 @Component({
 	selector: 'app-calculator',
 	templateUrl: './calculator.component.html',
-	styleUrls: ['./calculator.component.css']
+	styleUrls: ['./calculator.component.css'],
+	providers: [
+		{ provide: LoggerService, useValue: { info: (msg: string) => undefined}}
+	]
 })
 export class CalculatorComponent implements OnInit {
 
